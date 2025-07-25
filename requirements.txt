@@ -1,0 +1,6 @@
+streamlit==1.27.0
+pandas
+scikit-learn
+fpdf
+smtplib
+email
