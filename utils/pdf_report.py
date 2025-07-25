@@ -15,13 +15,16 @@ def generate_pdf_report(predictions: pd.DataFrame, filename="vitals_report.pdf")
     # Add table header
     col_names = predictions.columns.tolist()
     for col in col_names:
-        pdf.cell(35, 10, txt=str(col), border=1)
+        pdf.cell(35, 10, txt=str(col)[:15], border=1)
     pdf.ln()
 
     # Add data rows
     for index, row in predictions.iterrows():
         for col in col_names:
-            pdf.cell(35, 10, txt=str(round(row[col], 2)), border=1)
+            value = row[col]
+            if isinstance(value, (int, float)):
+                value = round(value, 2)
+            pdf.cell(35, 10, txt=str(value)[:15], border=1)
         pdf.ln()
 
     os.makedirs("data", exist_ok=True)
